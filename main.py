@@ -43,4 +43,4 @@ async def minhdan(ctx):
 #     await ctx.send("Choo choo! 🚅")
 
 
-bot.run(os.environ["DISCORD_TOKEN"])
+client.run(os.environ["DISCORD_TOKEN"])
