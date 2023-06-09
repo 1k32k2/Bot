@@ -6,6 +6,10 @@ from discord.ext import commands
 
 client = commands.Bot(command_prefix='$', intents = discord.Intents.all())
 
+@client.event
+async def on_ready():
+  print(f"log in as {client.user}")
+
 @client.command()
 async def foo(ctx, *, arg):
   await ctx.send(arg)
@@ -21,26 +25,16 @@ async def buscu(ctx):
 @client.command()
 async def minhdan(ctx):
   await ctx.message.channel.send('chào chú bé <@809060184722112552> đình')
-# import discord
-# from discord.ext import commands
 
+@client.command()
+async def join(ctx):
+  channel = ctx.author.voice.channel
+  await channel.connect()  
 
-# intents = discord.Intents.default()
-# intents.message_content = True
-# bot = commands.Bot(command_prefix='!', intents=intents)
-
-
-# @bot.event
-# async def on_ready():
-#     print(f"Logged in as {bot.user}")
-
-# @bot.command()
-# async def ping(ctx):
-#     await ctx.send('pong')
-
-# @bot.command()
-# async def hello(ctx):
-#     await ctx.send("Choo choo! 🚅")
-
+@client.command()
+async def out(ctx):
+  voice_client = ctx.guild.voice_client
+  await voice_client.disconnect()
+  
 
 client.run(os.environ["DISCORD_TOKEN"])
