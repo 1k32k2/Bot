@@ -1,5 +1,3 @@
-# This example requires the 'message_content' privileged intents
-
 import os
 import discord
 from discord.ext import commands
@@ -8,7 +6,7 @@ client = commands.Bot(command_prefix='$', intents = discord.Intents.all())
 
 @client.event
 async def on_ready():
-  print(f"log in as {client.user}")
+  print(f"log in as {client.user}: {client.user.id}")
 
 @client.command()
 async def foo(ctx, *, arg):
@@ -28,13 +26,19 @@ async def minhdan(ctx):
 
 @client.command()
 async def join(ctx):
+  is_connected = discord.utils.get(client.voice_clients, guild = ctx.guild)
+  voice_bot = ctx.guild.voice_client
   channel = ctx.author.voice.channel
-  await channel.connect()  
+  
+  if is_connected:
+    await voice_bot.move_to(channel)
+  else: 
+    await channel.connect()  
 
 @client.command()
 async def out(ctx):
-  voice_client = ctx.guild.voice_client
-  await voice_client.disconnect()
-  
+  voice_bot = ctx.guild.voice_client
+  await voice_bot.disconnect()
+
 
 client.run(os.environ["DISCORD_TOKEN"])
