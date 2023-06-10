@@ -1,5 +1,6 @@
 import os
 import discord
+
 from discord.ext import commands
 
 client = commands.Bot(command_prefix='$', intents = discord.Intents.all())
@@ -26,11 +27,10 @@ async def minhdan(ctx):
 
 @client.command()
 async def join(ctx):
-  is_connected = discord.utils.get(client.voice_clients, guild = ctx.guild)
   voice_bot = ctx.guild.voice_client
   channel = ctx.author.voice.channel
   
-  if is_connected:
+  if voice_bot:
     await voice_bot.move_to(channel)
   else: 
     await channel.connect()  
@@ -39,6 +39,5 @@ async def join(ctx):
 async def out(ctx):
   voice_bot = ctx.guild.voice_client
   await voice_bot.disconnect()
-
 
 client.run(os.environ["DISCORD_TOKEN"])
