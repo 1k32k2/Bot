@@ -1,7 +1,15 @@
 import os
 import discord
+import music
 
 from discord.ext import commands
+
+cogs = [music]
+
+client = commands.Bot(command_prefix='$', intents = discord.Intents.all())
+
+for i in range(len(cogs)):
+  cogs[i].setup(client)
 
 client = commands.Bot(command_prefix='$', intents = discord.Intents.all())
 
@@ -15,7 +23,7 @@ async def foo(ctx, *, arg):
 
 @client.command()
 async def bulul(ctx):
-  await ctx.message.channel.send('lul non lul ngon')
+  await ctx.message.channel.send('https://media.discordapp.net/attachments/1118824169627467806/1119709118521938030/Them_bulul_qua.mp4')
 
 @client.command()
 async def buscu(ctx):
@@ -39,5 +47,9 @@ async def join(ctx):
 async def out(ctx):
   voice_bot = ctx.guild.voice_client
   await voice_bot.disconnect()
+
+# @client.command()
+# async def play(ctx, url):
+  
 
 client.run(os.environ["DISCORD_TOKEN"])
