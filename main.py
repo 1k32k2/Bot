@@ -20,6 +20,7 @@ async def on_ready():
 @client.command()
 async def foo(ctx, *, arg):
   await ctx.send(arg)
+  await ctx.message.delete()
 
 @client.command()
 async def bulul(ctx):
